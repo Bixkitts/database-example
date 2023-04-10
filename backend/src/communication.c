@@ -3,11 +3,14 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <libpq-fe.h>
+#include "bbnetlib.h"
 
 #include "dbConnection.h"
 #include "defines.h"
 #include "communication.h"
 #include "dbCommands.h"
+
+#define BUFFER_SIZE 200
 
 // We connect to the DB and check it
 int connectDB(const char* connectString)
@@ -24,6 +27,14 @@ int connectDB(const char* connectString)
     return SUCCESS;
 }
 
+int runUDPServer()
+{
+    Client* localhost = createClient("0.0.0.0", 1616);
+    Client* remotehost = createClient("0.0.0.0", 1616);
+    char* receivedData = (char *) malloc(sizeof(char)*BUFFER_SIZE);
+    listenForUDP(receivedData, BUFFER_SIZE, localhost, remotehost);
 
+    return SUCCESS;
+}
 
 

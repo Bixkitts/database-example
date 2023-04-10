@@ -1,5 +1,5 @@
-#ifndef BBPOSTGRES
-#define BBPOSTGRES
+#ifndef BBCOMMUNICATION
+#define BBCOMMUNICATION
 
 #include <libpq-fe.h>
 
