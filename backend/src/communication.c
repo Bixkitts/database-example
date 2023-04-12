@@ -25,7 +25,7 @@ int connectDB(const char* connectString)
     if (PQstatus(connection) != CONNECTION_OK) {
         printf("Connection to database failed: %s", PQerrorMessage(connection));
         PQfinish(connection);
-        exit(1);
+        return ERROR;
     }
     return SUCCESS;
 }
@@ -50,7 +50,7 @@ int runTCPServer()
     return SUCCESS;
 }
 
-int closeDBConnection(PGconn* connection)
+int closeDBConnection()
 {
     PQfinish(connection); 
     return SUCCESS;

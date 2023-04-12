@@ -5,7 +5,7 @@
 
 extern int connectDB(const char* connectString);
 extern int runTCPServer();
-extern int closeDBConnection(PGconn* connection);
+extern int closeDBConnection();
 
 
 #endif
