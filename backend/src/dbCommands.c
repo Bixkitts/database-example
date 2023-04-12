@@ -31,7 +31,23 @@ char* dbGetNames(const char* data)
     PQclear(result);
     return ret;
 }
-char* dbGetNamesAndSalaries(const char* data);
+
+// Placeholder!!!!!
+char* dbGetNamesAndSalaries(const char* data)
+{
+    PGresult* result;
+    execSQL("SELECT name FROM employees", result);
+    int rows = PQntuples(result);
+    int cols = PQnfields(result);
+    char* ret = (char *) malloc(sizeof(char));
+    for(int i = 0; i < rows; i++)
+    {
+        strcat(ret,PQgetvalue(result, i, 0));
+    }
+    PQclear(result);
+    return ret;
+
+}
 
 
 char* execDBCommand(const enum DBCommand command, const char* data)

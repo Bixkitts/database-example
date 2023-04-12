@@ -3,6 +3,6 @@
 
 #include <libpq-fe.h>
 
-PGconn *connection; 
+extern PGconn *connection; 
 
 #endif
