@@ -28,6 +28,7 @@ char* dbGetNames(const char* data)
     {
         strcat(ret,PQgetvalue(result, i, 0));
     }
+    PQclear(result);
     return ret;
 }
 char* dbGetNamesAndSalaries(const char* data);

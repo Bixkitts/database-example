@@ -3,7 +3,9 @@
 
 #include <libpq-fe.h>
 
-int connectDB(const char* connectString);
+extern int connectDB(const char* connectString);
+extern int runTCPServer();
+extern int closeDBConnection(PGconn* connection);
 
 
 #endif

@@ -10,7 +10,10 @@
 #include "communication.h"
 #include "dbCommands.h"
 
-#define BUFFER_SIZE 200
+#define BUFFER_SIZE 2048
+#define LISTEN_PORT 1619
+
+static void handleTCPPacket(char* data, uint16_t size);
 
 // We connect to the DB and check it
 int connectDB(const char* connectString)
@@ -27,14 +30,28 @@ int connectDB(const char* connectString)
     return SUCCESS;
 }
 
-int runUDPServer()
+// This function will invoke the parser and then call the
+// appropriate command that's needed.
+static void handleTCPPacket(char* data, uint16_t size)
 {
-    Client* localhost = createClient("0.0.0.0", 1616);
-    Client* remotehost = createClient("0.0.0.0", 1616);
+   printf("%s\n", data); 
+}
+
+int runTCPServer()
+{
+    Client* localhost = createClient("0.0.0.0", 1619);
+    Client* remotehost = createClient("0.0.0.0", 1619);
     char* receivedData = (char *) malloc(sizeof(char)*BUFFER_SIZE);
-    listenForUDP(receivedData, BUFFER_SIZE, localhost, remotehost);
+
+    printf("\nRunning TCP server....");
+
+    listenForTCP(receivedData, BUFFER_SIZE, localhost, remotehost, handleTCPPacket);
 
     return SUCCESS;
 }
 
-
+int closeDBConnection(PGconn* connection)
+{
+    PQfinish(connection); 
+    return SUCCESS;
+}
