@@ -13,7 +13,7 @@
 #define BUFFER_SIZE 2048
 #define LISTEN_PORT 1619
 
-static void handleTCPPacket(char* data, uint16_t size);
+static void handleTCPPacket(char* data, uint16_t size, Client* remotehost);
 
 // We connect to the DB and check it
 int connectDB(const char* connectString)
@@ -32,9 +32,10 @@ int connectDB(const char* connectString)
 
 // This function will invoke the parser and then call the
 // appropriate command that's needed.
-static void handleTCPPacket(char* data, uint16_t size)
+static void handleTCPPacket(char* data, uint16_t size, Client* remotehost)
 {
    printf("%s\n", data); 
+
 }
 
 int runTCPServer()
