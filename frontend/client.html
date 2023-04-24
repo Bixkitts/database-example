@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Send HTTP Request on Button Press</title>
+</head>
+<body>
+    <h1>Send HTTP Request on Button Press</h1>
+    <button onclick="sendHttpRequest()">Send HTTP Request</button>
+    <script>
+        function sendHttpRequest() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://www.bixkitts.de:1619", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Handle response from server
+                }
+            };
+            xhr.send(JSON.stringify({command: "Hello World!"}));
+        }
+    </script>
+</body>
+</html>
+
