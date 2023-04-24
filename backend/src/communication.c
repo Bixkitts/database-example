@@ -42,7 +42,7 @@ int runTCPServer()
 
     printf("\nRunning TCP server....\n");
 
-    listenForTCP(receivedData, BUFFER_SIZE, localhost, remotehost, remotehost->packet_handler);
+    listenForTCP(receivedData, BUFFER_SIZE, localhost, remotehost, getClientPacketHandler(remotehost));
 
     return SUCCESS;
 }
