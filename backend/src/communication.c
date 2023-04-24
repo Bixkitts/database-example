@@ -15,6 +15,8 @@
 #define LISTEN_PORT 1619
 
 static void handleTCPPacket(char* data, uint16_t size, Client* remotehost);
+static void handleHTTPPacket(char* data, uint16_t size, Client* remotehost);
+
 
 // We connect to the DB and check it
 int connectDB(const char* connectString)
@@ -31,24 +33,16 @@ int connectDB(const char* connectString)
     return SUCCESS;
 }
 
-// This function will invoke the parser and then call the
-// appropriate command that's needed.
-static void handleTCPPacket(char* data, uint16_t size, Client* remotehost)
-{
-    printf("%s\n", data); 
-    compareString(data[0], " 
-
-}
-
 int runTCPServer()
 {
-   Client* localhost = createClient("0.0.0.0", 1619);
+    Client* localhost = createClient("0.0.0.0", 1619);
     Client* remotehost = createClient("0.0.0.0", 1619);
+    setClientPacketHandler(remotehost, handleTCPPacket);
     char* receivedData = (char *) malloc(sizeof(char)*BUFFER_SIZE);
 
     printf("\nRunning TCP server....\n");
 
-    listenForTCP(receivedData, BUFFER_SIZE, localhost, remotehost, handleTCPPacket);
+    listenForTCP(receivedData, BUFFER_SIZE, localhost, remotehost, remotehost->packet_handler);
 
     return SUCCESS;
 }
@@ -57,4 +51,22 @@ int closeDBConnection()
 {
     PQfinish(connection); 
     return SUCCESS;
+}
+
+// This function will invoke the parser and then call the
+// appropriate command that's needed.
+static void handleTCPPacket(char* data, uint16_t size, Client* remotehost)
+{
+    printf("%s\n", data); 
+    if(stringsMatch(&data[0], "OPTIONS", 7))
+    {
+        setClientPacketHandler(remotehost, handleHTTPPacket);
+    }
+
+
+}
+
+static void handleHTTPPacket(char* data, uint16_t size, Client* remotehost)
+{
+    
 }

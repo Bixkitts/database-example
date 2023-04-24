@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include "parser.h"
 
-bool compareString(const char* str1, const char* str2, int len)
+bool stringsMatch(const char* str1, const char* str2, int len)
 {
     bool result = 0;
     for(int i = 0; i < len; i++)
