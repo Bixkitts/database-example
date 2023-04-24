@@ -9,6 +9,7 @@
 #include "defines.h"
 #include "communication.h"
 #include "dbCommands.h"
+#include "parser.h"
 
 #define BUFFER_SIZE 2048
 #define LISTEN_PORT 1619
@@ -34,17 +35,18 @@ int connectDB(const char* connectString)
 // appropriate command that's needed.
 static void handleTCPPacket(char* data, uint16_t size, Client* remotehost)
 {
-   printf("%s\n", data); 
+    printf("%s\n", data); 
+    compareString(data[0], " 
 
 }
 
 int runTCPServer()
 {
-    Client* localhost = createClient("0.0.0.0", 1619);
+   Client* localhost = createClient("0.0.0.0", 1619);
     Client* remotehost = createClient("0.0.0.0", 1619);
     char* receivedData = (char *) malloc(sizeof(char)*BUFFER_SIZE);
 
-    printf("\nRunning TCP server....");
+    printf("\nRunning TCP server....\n");
 
     listenForTCP(receivedData, BUFFER_SIZE, localhost, remotehost, handleTCPPacket);
 

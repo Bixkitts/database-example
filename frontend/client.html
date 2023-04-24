@@ -9,7 +9,7 @@
     <script>
         function sendHttpRequest() {
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "http://www.bixkitts.de:1619", true);
+            xhr.open("POST", "http://www.bixkitts.de:1619/processing", true);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
