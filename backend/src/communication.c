@@ -61,6 +61,8 @@ static void handleTCPPacket(char* data, uint16_t size, Client* remotehost)
     if(stringsMatch(&data[0], "OPTIONS", 7))
     {
         setClientPacketHandler(remotehost, handleHTTPPacket);
+        char* responseOK = "HTTP/1.1 200 OK\r\nAllow: GET, POST, PUT, DELETE\r\nAccess-Control-Allow-Methods: GET, POST, PUT, DELETE\r\nAccess-Control-Allow-Origin: *\r\n\r\n";
+        sendDataTCP(responseOK, 137, remotehost);
     }
 
 
@@ -68,5 +70,5 @@ static void handleTCPPacket(char* data, uint16_t size, Client* remotehost)
 
 static void handleHTTPPacket(char* data, uint16_t size, Client* remotehost)
 {
-    
+    printf("%s\n", data); 
 }
