@@ -7,5 +7,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/dbConnection.h
     ${CMAKE_CURRENT_SOURCE_DIR}/dbConnection.c
     ${CMAKE_CURRENT_SOURCE_DIR}/defines.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/parser.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/parser.c
 )
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
