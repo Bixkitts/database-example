@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include <stdint.h>
 #include <libpq-fe.h>
 #include "bbnetlib.h"
@@ -40,10 +41,11 @@ int runTCPServer()
     setClientPacketHandler(remotehost, handleTCPPacket);
     char* receivedData = (char *) malloc(sizeof(char)*BUFFER_SIZE);
 
-    printf("\nRunning TCP server....\n");
+    (void)printf("\nRunning TCP server....\n");
 
     listenForTCP(receivedData, BUFFER_SIZE, localhost, remotehost, getClientPacketHandler(remotehost));
 
+    free(receivedData);
     return SUCCESS;
 }
 
@@ -64,8 +66,6 @@ static void handleTCPPacket(char* data, uint16_t size, Client* remotehost)
         char* responseOK = "HTTP/1.1 200 OK\r\nAccess-Control-Allow-Origin: *\r\nAccess-Control-Allow-Methods: GET, POST, PUT, DELETE\r\nAccess-Control-Allow-Headers: Content-Type, Authorization\r\n\r\n";
         sendDataTCP(responseOK, 174, remotehost);
     }
-
-
 }
 
 static void handleHTTPPacket(char* data, uint16_t size, Client* remotehost)
