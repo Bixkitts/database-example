@@ -43,7 +43,10 @@ int runTCPServer()
 
     (void)printf("\nRunning TCP server....\n");
 
-    listenForTCP(receivedData, BUFFER_SIZE, localhost, remotehost, getClientPacketHandler(remotehost));
+    while(1)
+    {
+        listenForTCP(receivedData, BUFFER_SIZE, localhost, remotehost, getClientPacketHandler(remotehost));
+    }
 
     free(receivedData);
     return SUCCESS;
@@ -65,6 +68,7 @@ static void handleTCPPacket(char* data, uint16_t size, Client* remotehost)
         setClientPacketHandler(remotehost, handleHTTPPacket);
         char* responseOK = "HTTP/1.1 200 OK\r\nAccess-Control-Allow-Origin: *\r\nAccess-Control-Allow-Methods: GET, POST, PUT, DELETE\r\nAccess-Control-Allow-Headers: Content-Type, Authorization\r\n\r\n";
         sendDataTCP(responseOK, 174, remotehost);
+        unsetListening(remotehost);
     }
 }
 
