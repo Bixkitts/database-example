@@ -15,8 +15,14 @@ Showing how I can use C as a backend to query and edit a database and maybe buil
 - Integration with interesting systems or technology like ChatGPT
 
 ## Building
-- cd into Backend
+- git submodule update
+- cd Backend
 - mkdir build
 - cd build
 - cmake DCMAKE_BUILD_TYPE=Release/Debug ..
 - cmake --build .
+
+## Usage
+run ./database-example and it will listen by default on TCP port 1619 for incoming connections.
+The included frontend application has an example request that doesn't do anything yet except
+elicit an appropriate CORS response
